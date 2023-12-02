@@ -1,0 +1,12 @@
+{% extends 'client/base.html' %}
+
+
+{% block content %}
+<div>
+    {% for med in cart %}
+    <div>
+        {{ med }}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

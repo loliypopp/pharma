@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacist</title>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="">Главная</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="">Профиль</a></li>
+            <li><a href="">Добавить</a></li>
+            <li><a href="{% url 'logout_pharmacist' %}">Выход</a></li>
+            {% else %}
+            <li><a href="{% url 'registration_pharmacist' %}">Регистрация</a></li>
+            <li><a href="{% url 'login_pharmacist' %}">Войти</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% block content %}
+    <div>
+
+    </div>
+    {% endblock %}
+</body>
+
+</html>

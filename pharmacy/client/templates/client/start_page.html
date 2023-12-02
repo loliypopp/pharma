@@ -1,0 +1,11 @@
+{% extends 'client/base.html' %}
+
+
+{% block content %}
+{% for medicine in medicines %}
+<div>
+    <h3>{{medicine}}</h3>
+    <p><a href="{% url 'medicine_detail' medicine.slug %}">Details</a></p>
+</div>
+{% endfor %}
+{% endblock %}

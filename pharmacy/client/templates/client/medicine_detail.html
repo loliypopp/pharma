@@ -1,0 +1,8 @@
+{% extends 'client/base.html' %}
+
+
+{% block content %}
+<p>{{medicine}}</p>
+<p><img src="{{medicine.image}}" alt=""></p>
+<p><a href="{% url 'cart_add' medicine.slug %}">Добавить в корзину</a></p>
+{% endblock %}
