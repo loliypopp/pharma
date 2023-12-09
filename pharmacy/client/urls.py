@@ -12,7 +12,8 @@ urlpatterns = [
 
     # medicine
     path('medicine-detail/<slug:slug>/', MedicineDetailView.as_view(), name='medicine_detail'),
-
+    path('profile/my-orders/', orders_list, name='order_list'),
+    path('profile/my-orders/<str:link>/details/', order_details, name='order_details'),
 
     # auth
     path('registration/', register_client, name='registration'),

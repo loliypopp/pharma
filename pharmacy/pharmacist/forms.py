@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import Pharmacist, Medicine
 from main.models import CustomUser
+from client.models import Order
 
 class CustomUserRegistrationForm(UserCreationForm):
     password1 = forms.CharField(widget=forms.PasswordInput)
@@ -21,3 +22,5 @@ class MedicineAdditionForm(forms.ModelForm):
     class Meta:
         model = Medicine
         exclude = ['slug']
+
+

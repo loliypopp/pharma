@@ -1,0 +1,13 @@
+{% extends 'client/base.html' %}
+
+
+{% block content %}
+<div>
+    <form method="post">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ client_form.as_p }}
+        <input type="submit" value="Подтвердить">
+    </form>
+</div>
+{% endblock %}

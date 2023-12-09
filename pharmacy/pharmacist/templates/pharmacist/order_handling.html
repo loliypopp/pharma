@@ -1,0 +1,13 @@
+{% extends 'pharmacist/base.html' %}
+
+
+{% block content %}
+<div>
+    {% for order in orders %}
+    <div>
+        {{ order }}
+        <p><a href="{% url 'order_details_ph' order.id %}">Дополнительно</a></p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

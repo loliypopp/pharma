@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Client, Cart, CartItem
+from .models import Client, Cart, CartItem, Order
 from main.models import CustomUser
 
 
@@ -18,3 +18,9 @@ class ClientRegistrationForm(forms.ModelForm):
         fields = ['age', 'address', 'phone']
 
 
+
+
+class ClientOrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ['pharmacy']

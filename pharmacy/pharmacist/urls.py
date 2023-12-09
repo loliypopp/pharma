@@ -3,6 +3,11 @@ from .views import *
 
 urlpatterns = [
     path('', TheStartPage.as_view(), name='start_page_pharmacist'),
+    path('profile/', UserProfileView.as_view(), name='profile_pharmacist'),
+
+    # orders
+    path('orders/', orders_handling, name='orders_handling'),
+    path('orders/<str:link>/', order_details, name='order_details_ph'),
 
 
     path('add_medicine/', CreateMedicineView.as_view(), name='add_medicine'),

@@ -1,0 +1,13 @@
+{% extends 'pharmacist/base.html' %}
+
+
+{% block content %}
+<div>
+    {% for order in orders %}
+    <div>
+        <p>{{ order }}</p>
+        <p>{{ order.pharmacy }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -69,15 +69,39 @@ class UserProfileView(TemplateView):
 
 
 
-@require_GET
+@login_required
 def cart_view(request):
     client = get_object_or_404(Client, user=request.user)
-    cart = get_object_or_404(Cart, user=client)
-    cart_items = CartItem.objects.filter(cart=cart)
+    cart =  get_object_or_404(Cart, user=client)
+    if request.method == 'POST':
+        form = ClientOrderForm(request.POST)
+        if form.is_valid():
+            pharmacy = form.cleaned_data['pharmacy']
 
-    print(cart_items)
+        order = Order.objects.create(user=client, total_price=cart.total_price, pharmacy=pharmacy)
+        cart_items = cart.cartitems.all()
 
-    context = {'cart': cart_items}
+
+        for cart_item in cart_items:
+            order.order_items.create(medicine=cart_item.medicine, quantity=cart_item.quantity)
+    
+        cart.cartitems.all().delete()
+        cart.total_price = 0
+        cart.save()
+        
+        return redirect('order_list')
+
+    else:
+        form = ClientOrderForm()
+        cart_items = CartItem.objects.filter(cart=cart)
+
+ 
+
+
+    context = {
+                'cart': cart_items,
+                'form':form
+                }
     return render(request, 'client/cart.html', context)
     
 
@@ -94,3 +118,32 @@ def add_medicine_to_cart(request, slug):
 
     current_url = resolve(request.path_info).url_name
     return redirect('start_page')
+
+
+
+def orders_list(request):
+    client = get_object_or_404(Client, user=request.user)
+    orders = Order.objects.filter(user=client)
+    
+
+    context = {'orders': orders}
+    return render(request, 'client/order_list.html', context)
+
+
+def order_details(request, link):
+    order_items = OrderItem.objects.filter(order=link)
+
+
+    context ={
+        'orders':order_items
+        }
+    
+    return render(request, 'client/order_details.html', context)
+
+
+
+
+
+    
+
+

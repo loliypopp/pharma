@@ -10,9 +10,9 @@
 <body>
     <nav>
         <ul>
-            <li><a href="">Главная</a></li>
+            <li><a href="{% url 'start_page_pharmacist' %}">Главная</a></li>
             {% if user.is_authenticated %}
-            <li><a href="">Профиль</a></li>
+            <li><a href="{% url 'profile_pharmacist' %}">Профиль</a></li>
             <li><a href="">Добавить</a></li>
             <li><a href="{% url 'logout_pharmacist' %}">Выход</a></li>
             {% else %}

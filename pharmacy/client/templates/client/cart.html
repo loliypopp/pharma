@@ -6,7 +6,15 @@
     {% for med in cart %}
     <div>
         {{ med }}
-        {% endfor %}
+
     </div>
+    {% endfor %}
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+        <input type="submit" value="Купить">
+    </form>
+
 </div>
 {% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'client/base.html' %}
+
+
+{% block content %}
+{% for order in orders %}
+<div>
+    <p>{{ order }}</p>
+    <p>{{ order.status }}</p>
+    <p><a href="{% url 'order_details' order.id %}">Details</a></p>
+</div>
+{% endfor %}
+{% endblock %}
