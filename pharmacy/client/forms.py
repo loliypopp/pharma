@@ -11,11 +11,22 @@ class CustomUserRegistrationForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = ['email', 'username', 'first_name', 'last_name', 'password1', 'password2']
+        labels = {
+            'first_name':'Имя: ',
+            'last_name':'Фамилия: ',
+            'password1': 'Пароль: ',
+            'password2': 'Подтверждение: '
+        }
 
 class ClientRegistrationForm(forms.ModelForm):
     class Meta:
         model = Client
         fields = ['age', 'address', 'phone']
+        labels = {
+            'age':'Возраст: ',
+            'address':'Адрес: ',
+            'phone': 'Номер телефона: ',
+        }
 
 
 
@@ -24,3 +35,6 @@ class ClientOrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ['pharmacy']
+        labels = {
+            'pharmacy': 'Аптека:',
+        }

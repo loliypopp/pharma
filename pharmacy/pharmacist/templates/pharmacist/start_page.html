@@ -2,12 +2,20 @@
 
 
 {% block content %}
-<h3><a href="{% url 'add_medicine' %}">Добавить лекарство</a></h3>
-{% for medicine in medicines %}
-
-<div>
-    <h3>{{medicine}}</h3>
-    <p><a href="{% url 'medicine_detail' medicine.slug %}">Details</a></p>
+{% if user.is_authenticated %}
+<h3 style="text-align: center;"><a href="{% url 'add_medicine' %}" class="sub"
+        style="text-decoration: none; color: black; align-items: center;">Добавить
+        лекарство</a>
+</h3>
+{% endif %}
+<div class='main-div'>
+    {% for medicine in medicines %}
+    <div class="med-div" style="width: 300px;">
+        <h3 class="med-name">{{medicine.name}}</h3>
+        <img src="{{ medicine.image.url }}" alt="{{medicine.name}}" class="med-img">
+        <p>Цена: {{ medicine.price }}$</p>
+        <p><a href="{% url 'medicine_detail_pharmacist' medicine.slug %}" class="med-det">Подробнее</a></p>
+    </div>
+    {% endfor %}
 </div>
-{% endfor %}
 {% endblock %}

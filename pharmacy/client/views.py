@@ -44,9 +44,31 @@ def register_client(request):
     return render(request, 'client/registration.html', {'user_form': user_form, 'client_form': client_form})
 
 
+@login_required
+def add_to_favorites(request, slug):
+    medicine = Medicine.objects.get(slug = slug)
+    client = get_object_or_404(Client, user=request.user)
+    if not Favourite.objects.filter(client=client, medicine=medicine).exists():
+        Favourite.objects.create(client=client, medicine=medicine)
+
+    return redirect('medicine_detail', slug=slug)
+
+
+@login_required
+def remove_from_favorites(request, slug):
+    medicine = Medicine.objects.get(slug = slug)
+    client = request.user.client
+
+    favorite_medicine = Favourite.objects.filter(client=client, medicine=medicine)
+    if favorite_medicine.exists():
+        favorite_medicine.delete()
+
+    return redirect('medicine_detail', slug=slug)
+
+
 def logout_client(request):
     logout(request)
-    return redirect('start_page')
+    return redirect('login')
 
 
 class LoginPageView(LoginView):
@@ -73,11 +95,12 @@ class UserProfileView(TemplateView):
 def cart_view(request):
     client = get_object_or_404(Client, user=request.user)
     cart =  get_object_or_404(Cart, user=client)
+    
     if request.method == 'POST':
         form = ClientOrderForm(request.POST)
         if form.is_valid():
             pharmacy = form.cleaned_data['pharmacy']
-
+            print(pharmacy)
         order = Order.objects.create(user=client, total_price=cart.total_price, pharmacy=pharmacy)
         cart_items = cart.cartitems.all()
 
@@ -100,7 +123,8 @@ def cart_view(request):
 
     context = {
                 'cart': cart_items,
-                'form':form
+                'form':form,
+                'total_price':cart.total_price
                 }
     return render(request, 'client/cart.html', context)
     
@@ -142,7 +166,10 @@ def order_details(request, link):
 
 
 
-
+class FavoritesPage(ListView):
+    model = Favourite
+    template_name = 'client/favorites.html'
+    context_object_name = 'favorites'
 
     
 

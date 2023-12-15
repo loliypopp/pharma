@@ -1,11 +1,14 @@
 {% extends 'client/base.html' %}
 
-
 {% block content %}
-{% for medicine in medicines %}
-<div>
-    <h3>{{medicine}}</h3>
-    <p><a href="{% url 'medicine_detail' medicine.slug %}">Details</a></p>
+<div class='main-div'>
+    {% for medicine in medicines %}
+    <div class="med-div">
+        <h3 class="med-name">{{medicine.name}}</h3>
+        <img src="{{ medicine.image.url }}" alt="{{medicine.name}}" class="med-img">
+        <p>Цена: {{ medicine.price }}$</p>
+        <p><a href="{% url 'medicine_detail' medicine.slug %}" class="med-det">Подробно</a></p>
+    </div>
+    {% endfor %}
 </div>
-{% endfor %}
 {% endblock %}

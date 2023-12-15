@@ -1,7 +1,7 @@
 from django.db import models
 from main.models import CustomUser
 from pharmacist.models import Medicine, Pharmacy
-
+from courier.models import Courier
 
 class Client(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
@@ -19,17 +19,13 @@ class Order(models.Model):
     user = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='orders')
     order_date = models.DateTimeField(auto_now_add=True)
     total_price = models.PositiveIntegerField(default=0)
-    status_choices = [
-        ('PENDING', 'Pending'),
-        ('PROCESSING', 'Processing'),
-        ('SHIPPED', 'Shipped'),
-        ('DELIVERED', 'Delivered'),
-    ]
-    status = models.CharField(max_length=20, choices=status_choices, default='PENDING')
+    status = models.CharField(max_length=20, default='В обработке')
     pharmacy = models.ForeignKey(Pharmacy, blank=True, on_delete=models.CASCADE)
+    courier = models.ForeignKey(Courier, on_delete=models.CASCADE, blank=True, null=True)
+
 
     def __str__(self):
-        return f"{self.id}-{self.user.user.username}-{self.total_price}-{self.pharmacy}"
+        return f"{self.user.user.username}-{self.total_price}-{self.pharmacy}"
 
 
 class OrderItem(models.Model):
@@ -40,20 +36,12 @@ class OrderItem(models.Model):
     def __str__(self):
         return f"{self.medicine.name}-{self.quantity}"
 
-    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        super().save(force_insert, force_update, using, update_fields)
-        self.order.total_price += self.medicine.price * self.quantity
-        self.order.save()
-
-    def delete(self, using=None, keep_parents=False):
-        self.order.total_price -= self.medicine.price * self.quantity
-        self.order.save()
-        return super().delete(using, keep_parents)
-
-    def get_item_price(self):
-        if self.medicine:
-            return self.medicine.price * self.quantity
-        return 0
+class Favourite(models.Model):
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
+    
+    def __str__(self) -> str:
+        return f'{self.client.user.first_name}-{self.medicine.name}'
 
 
 class Cart(models.Model):
@@ -70,6 +58,7 @@ class Cart(models.Model):
 
         for cart_item in cart_items:
             OrderItem.objects.create(order=order, medicine=cart_item.medicine, quantity=cart_item.quantity)
+
 
 
 

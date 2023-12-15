@@ -1,0 +1,440 @@
+body {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+
+.main {
+    flex: 1;
+}
+
+nav {
+    background-color: black;
+    display: flex;
+    width: 100%;
+    height: 65px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul {
+    display: flex;
+
+}
+
+li {
+    margin-left: 35px;
+    margin-right: 10px;
+}
+
+.logo {
+    height: 80px;
+    width: 80px;
+}
+
+.logo-a {
+    text-decoration: none;
+    transition: 1s;
+}
+
+.logo-a:hover {
+    filter: drop-shadow(10px 10px 16px rgb(6, 74, 200));
+}
+
+/* Плавное исчезновение эффекта при снятии ховера */
+.logo-a:not(:hover) {
+    filter: none;
+}
+
+.li-a {
+    color: white;
+    text-decoration: none;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    transition: color 0.3s;
+    /* Добавлен переход для цвета текста */
+    align-items: center;
+    text-align: center;
+}
+
+
+.li-a:hover {
+    color: rgb(6, 74, 200);
+    transition: 1s;
+
+}
+
+.main-div {
+    margin: 0 auto;
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    /* изменено на wrap, чтобы элементы переносились на новую строку */
+    width: 1080px;
+    border: 3px solid black;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.med-div {
+    width: 300px;
+    height: 325px;
+    border-radius: 15px;
+    border: 2px solid black;
+    align-items: center;
+    text-align: center;
+    font-size: 18px;
+
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+.med-div {
+    flex-basis: calc(25% - 20px);
+    /* 25% для 4 элементов в ряду, вычитаем 20px для учета отступов */
+    margin-bottom: 20px;
+    /* отступ между блоками */
+}
+
+a {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+
+.med-det {
+    color: black;
+    text-decoration: none;
+    font-size: 18px;
+    width: 40px;
+    height: 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.med-div:hover {
+    background-color: rgb(176, 199, 241);
+    transition: 0.5s;
+
+    .med-det {
+        transition: 0.5s;
+
+
+    }
+}
+
+
+img.med-img {
+    width: 170px;
+    height: 160px;
+}
+
+.med-name {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+footer {
+    background-color: black;
+    width: 100%;
+    height: 140px;
+    text-align: center;
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.foot-img {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+.foot-img img {
+    filter: grayscale(100%);
+    transition: filter 0.7s ease;
+}
+
+.foot-img img:hover {
+    filter: grayscale(0%);
+}
+
+
+
+.end-img {
+    width: 50px;
+    margin-left: 100px;
+}
+
+
+
+.foot-text {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-right: 50px;
+}
+
+.text-end {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+.text-end:hover {
+    color: rgb(6, 74, 200);
+    transition: 1s;
+
+}
+
+
+.det {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.det-page {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 1080px;
+    border: 3px solid black;
+    border-radius: 15px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+.det-text {
+    text-align: center;
+}
+
+.det-add {
+    color: black;
+    text-decoration: none;
+    font-size: 18px;
+    width: 40px;
+    height: 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.det-add:hover {
+    color: rgb(6, 74, 200);
+    border: 1px solid rgb(6, 74, 200);
+}
+
+.det-end {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.prof-page {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 620px;
+    border: 3px solid black;
+    border-radius: 15px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.prof-a {
+    color: black;
+    text-decoration: none;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 25px;
+}
+
+.prof-a:hover {
+    color: rgb(6, 74, 200);
+    transition: 0.5s;
+}
+
+.cart-div {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 720px;
+    align-content: space-between;
+    margin-top: 20px;
+    padding: 20px;
+    border: 3px solid black;
+    border-radius: 15px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.bom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* Изменили на space-between для равномерного распределения между элементами */
+    align-items: flex-start;
+}
+
+.cart-med {
+    width: 190px;
+    margin-right: 5px;
+    height: 80px;
+    color: black;
+    border-radius: 15px;
+    text-align: center;
+    border: 2px solid rgb(6, 74, 200);
+    margin-bottom: 20px;
+}
+
+
+.cart-form p select {
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 5px;
+}
+
+.cart-form p label {
+    font-weight: bold;
+}
+
+.sub {
+    border-radius: 15px;
+    padding: 5px;
+    border: 1px solid black;
+    font-size: 17px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.sub:hover {
+    cursor: pointer;
+}
+
+.prof-page {
+    flex-direction: column;
+}
+
+.reg-div {
+    margin: 0 auto;
+    width: 620px;
+    margin-top: 20px;
+    padding: 20px;
+    border: 3px solid black;
+    align-items: center;
+    text-align: center;
+    border-radius: 15px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.cart-div {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 720px;
+    align-content: space-between;
+    margin-top: 20px;
+    padding: 20px;
+    border: 3px solid black;
+    border-radius: 15px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+.form p input {
+    border: 1px solid black;
+    border-radius: 15px;
+    text-align: center;
+    padding: 5px;
+}
+
+.form p label {
+    font-weight: bold;
+}
+
+
+.log-div {
+    margin: 0 auto;
+    width: 510px;
+    margin-top: 20px;
+    padding: 20px;
+    border: 3px solid black;
+    align-items: center;
+    text-align: center;
+    border-radius: 15px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.log-f p input {
+    border: 1px solid black;
+    border-radius: 15px;
+    text-align: center;
+    padding: 5px;
+}
+
+.log-f p label {
+    font-weight: bold;
+}
+
+data {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    flex-direction: row;
+}
+
+
+.order-div {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 720px;
+    align-content: space-between;
+    margin-top: 20px;
+    padding: 20px;
+    border: 3px solid black;
+    border-radius: 15px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.order-med {
+    width: 210px;
+    margin-right: 5px;
+
+    color: black;
+    border-radius: 15px;
+    text-align: center;
+    border: 2px solid rgb(6, 74, 200);
+    margin-bottom: 20px;
+}
+
+
+.ord-div {
+    width: 250px;
+    border-radius: 15px;
+    border: 2px solid black;
+    align-items: center;
+    text-align: center;
+    font-size: 18px;
+
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.ord-div:hover {
+    background-color: rgb(176, 199, 241);
+    transition: 0.5s;
+}

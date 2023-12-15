@@ -1,0 +1,18 @@
+{% extends 'pharmacist/base.html' %}
+
+
+{% block content %}
+<h1 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; text-align: center;">Мои
+    лекарства:</h1>
+<div class="main-div">
+
+    {% for med in meds %}
+    <div class="med-div">
+        <h3 class="med-name">{{medicine.name}}</h3>
+        <img src="{{ med.image.url }}" alt="{{med.name}}" class="med-img">
+        <p>Цена: {{ med.price }}$</p>
+        <p><a href="{% url 'medicine_detail_pharmacist' med.slug %}" class="med-det">Подробнее</a></p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

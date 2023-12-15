@@ -2,12 +2,24 @@
 
 
 {% block content %}
-<div>
-    {% for order in orders %}
-    <div>
-        <p>{{ order }}</p>
-        <p>{{ order.pharmacy }}</p>
+<div class="cart-div">
+    <h1>Детали заказа:</h1>
+    <div class="bom">
+        {% for order in orders %}
+        <div class="cart-med">
+            <p>Название: {{ order.medicine.name }}</p>
+            <p>Цена: {{ order.medicine.price }}$</p>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+    {% if ord.status == "Сбор" %}
+    <form method="post" class="form">
+        {%csrf_token%}
+        {{form.as_p}}
+        <input type="submit" value="Подтвердить" class="sub">
+    </form>
+    {% else %}
+    <h2>Заказ уже доставляется!</h2>
+    {% endif %}
 </div>
 {% endblock %}

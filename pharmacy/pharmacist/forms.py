@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Pharmacist, Medicine
 from main.models import CustomUser
 from client.models import Order
+from courier.models import Courier
 
 class CustomUserRegistrationForm(UserCreationForm):
     password1 = forms.CharField(widget=forms.PasswordInput)
@@ -24,3 +25,13 @@ class MedicineAdditionForm(forms.ModelForm):
         exclude = ['slug']
 
 
+class FreeCourierOrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ['courier']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Ограничиваем выбор курьеров только теми, у которых статус 'Свободен'
+        free_couriers = Courier.objects.filter(status='Свободен')
+        self.fields['courier'].queryset = free_couriers

@@ -1,11 +1,12 @@
 {% extends 'pharmacist/base.html' %}
 
 {% block content %}
-    <div>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Войти">
-        </form>
-    </div>
+<div class="log-div">
+    <h1>Авторизация: </h1>
+    <form method="post" class="log-f">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Войти" class="sub">
+    </form>
+</div>
 {% endblock %}

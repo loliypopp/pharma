@@ -8,7 +8,7 @@ from transliterate import slugify as tr_slugify
 
 class Pharmacy(models.Model):
     name = models.CharField(max_length=255, verbose_name='Название аптеки', unique=True)
-    image = models.ImageField(upload_to='pharmacy_images/')
+    image = models.ImageField(upload_to='pharmacy/')
     address = models.CharField(max_length=255, verbose_name='Адрес аптеки')
     phone_number = models.CharField(max_length=15, verbose_name='Номер телефона аптеки')
     slug = models.SlugField(unique=True, blank=True)
@@ -42,7 +42,7 @@ class Pharmacist(models.Model):
 
 
 class Medicine(models.Model):
-    pharmacies = models.ManyToManyField(Pharmacy)
+    pharmacies = models.ForeignKey(Pharmacy, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='medicine_images/')
     slug = models.SlugField(unique=True, blank=True)

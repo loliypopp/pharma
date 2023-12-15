@@ -2,11 +2,20 @@
 
 
 {% block content %}
-{% for order in orders %}
-<div>
-    <p>{{ order }}</p>
-    <p>{{ order.status }}</p>
-    <p><a href="{% url 'order_details' order.id %}">Details</a></p>
+<div class="order-div">
+    <h1>Мои заказы:</h1>
+    <div class="bom">
+        {% for order in orders %}
+        <div class="order-med">
+            <p>Заказ-{{ order.user.username }}</p>
+            <p>Дата заказа: {{ order.order_date }}</p>
+            <p>Сумма: {{ order.total_price }}</p>
+            <p>Статус заказа: {{ order.status }}</p>
+            <p><a href="{% url 'order_details' order.id %}" class="sub"
+                    style="text-decoration: none; color: black;">Подробно</a></p>
+        </div>
+        {% endfor %}
+    </div>
 </div>
-{% endfor %}
+
 {% endblock %}

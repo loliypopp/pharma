@@ -2,11 +2,12 @@
 
 
 {% block content %}
-    <div>
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Добавить">
-        </form>
-    </div>
+<div class="reg-div">
+    <h1>Добавление лекарства</h1>
+    <form method="post" enctype="multipart/form-data" class="form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Добавить" class="sub">
+    </form>
+</div>
 {% endblock %}

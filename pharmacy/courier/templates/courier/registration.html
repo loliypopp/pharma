@@ -1,13 +1,12 @@
-{% extends 'client/base.html' %}
-
+{% extends 'courier/base.html' %}
 
 {% block content %}
-<div>
-    <form method="post">
+<div class="reg-div">
+    <form method="post" class="form">
         {% csrf_token %}
         {{ user_form.as_p }}
-        {{ client_form.as_p }}
-        <input type="submit" value="Подтвердить">
+        {{ courier_form.as_p }}
+        <input type="submit" value="Подтвердить" class="sub">
     </form>
 </div>
 {% endblock %}

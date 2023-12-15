@@ -2,19 +2,31 @@
 
 
 {% block content %}
-<div>
-    {% for med in cart %}
-    <div>
-        {{ med }}
+<div class="cart-div">
+    <h1>Корзина</h1>
+    {% if cart %}
+    <div class="bom">
+
+        {% for med in cart %}
+        <div class="cart-med">
+            <p>Название: {{ med.medicine.name }}</p>
+            <p>Цена: {{ med.medicine.price }}$</p>
+        </div>
+        {% endfor %}
+
+
 
     </div>
-    {% endfor %}
-    <form method="post">
-        {% csrf_token %}
-
-        {{ form.as_p }}
-        <input type="submit" value="Купить">
-    </form>
-
+    <div class="cart-form">
+        <h3>Итого: {{ total_price }}</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Купить" class="sub">
+        </form>
+    </div>
+    {% else %}
+    <h2>Здесь пока ничего нет!</h2>
+    {% endif %}
 </div>
 {% endblock %}

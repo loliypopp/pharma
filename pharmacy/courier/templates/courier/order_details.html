@@ -1,0 +1,32 @@
+{% extends 'courier/base.html' %}
+
+
+{% block content %}
+<div class="cart-div">
+    <h1>Подробнее о заказе:</h1>
+    <h2>Информация о пользователе:</h2>
+    <div style="font-weight: bold;">
+        <p>Имя клиента: {{ user }}</p>
+        <p>Адрес клиента: {{ user.address }}</p>
+        <p>Номер телефона: {{ user.phone }}</p>
+    </div>
+    <h2>Лекарства: </h2>
+    <div class="bom">
+        {% for order in orders %}
+        <div class="cart-med">
+            <p>Название: {{ order.medicine.name }}</p>
+            <p>Цена: {{ order.medicine.price }}$</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% if ord.status == "Доставлен" %}
+    <h3 style="color: rgb(6, 74, 200);">Товар доставлен</h3>
+    {% else %}
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" class='sub' value="Доставлен">
+    </form>
+    {% endif %}
+
+</div>
+{% endblock %}

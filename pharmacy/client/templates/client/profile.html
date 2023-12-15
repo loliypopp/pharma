@@ -1,7 +1,21 @@
 {% extends 'client/base.html' %}
-
+{% load static %}
 
 {% block content %}
-<p><a href="{% url 'cart' %}">Cart</a></p>
-<p><a href="{% url 'order_list' %}">My orders</a></p>
+<div class="prof-page">
+    <div class="data" style="display: flex; align-items: center; font-weight: bold; flex-direction: row;">
+        <img src="{% static 'client/images/profile.png' %}" alt="" style="width: 150px;">
+        <div>
+            <p>Username: {{ user.username }}</p>
+            <p>Имя: {{ user.first_name }}</p>
+            <p>Фамилия: {{ user.last_name }}</p>
+        </div>
+    </div>
+    <div>
+        <p><a href="{% url 'cart' %}" class="prof-a">Корзина</a></p>
+        <p><a href="{% url 'order_list' %}" class="prof-a">Мои заказы</a></p>
+        <p><a href="{% url 'favorites' %}" class="prof-a">Избранное</a></p>
+        <p><a href="" class="prof-a">Настройки</a></p>
+    </div>
+</div>
 {% endblock %}

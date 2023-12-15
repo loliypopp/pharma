@@ -2,9 +2,17 @@
 
 
 {% block content %}
-{% for order in orders %}
-<div>
-    <p>{{ order }}</p>
+<div class="cart-div">
+    <h1>Подробнее о заказе:</h1>
+    <div class="bom">
+
+        {% for order in orders %}
+        <div class="cart-med">
+            <p>Название: {{ order.medicine.name }}</p>
+            <p>Цена: {{ order.medicine.price }}$</p>
+        </div>
+        {% endfor %}
+
+    </div>
 </div>
-{% endfor %}
 {% endblock %}

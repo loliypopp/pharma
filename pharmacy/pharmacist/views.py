@@ -1,14 +1,18 @@
-from django.shortcuts import get_object_or_404, render, redirect
-from .models import *
-from django.views.generic import CreateView, ListView, DetailView, DeleteView, TemplateView
-from .forms import CustomUserRegistrationForm, PharmacistRegistrationForm, MedicineAdditionForm
+from client.models import Client, Order, OrderItem
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
-from client.models import Order, OrderItem, Client
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  TemplateView)
+from pyexpat.errors import messages
 
-
+from .forms import (CustomUserRegistrationForm, FreeCourierOrderForm,
+                    MedicineAdditionForm, PharmacistRegistrationForm)
+from .models import *
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 class TheStartPage(ListView):
     model = Medicine
@@ -21,6 +25,7 @@ class CreateMedicineView(CreateView):
     model = Medicine
     template_name = 'pharmacist/add_medicine.html'
     form_class = MedicineAdditionForm
+    success_url = reverse_lazy('start_page_pharmacist')
     
 
 
@@ -88,10 +93,39 @@ def order_details(request, link):
     order.status = 'Сбор'
     order.save()
     
-    client = order.user
+    if request.method == 'POST':
+        form = FreeCourierOrderForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            courier = order.courier
+            courier.status = 'Занят'
+            courier.save()
+            order.status = 'Доставляется'
+            order.save()
+            return redirect('orders_handling')
+        
+    else:
+        # Если запрос не POST, создайте форму
+        form = FreeCourierOrderForm(instance=order)
 
+    client = order.user
+    print(order)
     order_items = OrderItem.objects.filter(order=link)
-    context = {'order':order,
-               'orders':order_items}
+    print(order_items)
+    context = {'orderr':order,
+               'orders':order_items,
+               'form': form}
     
     return render(request, 'pharmacist/order_details.html', context)
+
+
+
+def ph_meds(request):
+    pharmacist = Pharmacist.objects.get(user=request.user)
+    pharmacy = pharmacist.pharmacy.id
+    print(pharmacy)
+    meds = Medicine.objects.filter(pharmacies=pharmacy)
+    context = {
+        'meds':meds
+    }
+    return render(request, 'pharmacist/ph_meds.html', context)

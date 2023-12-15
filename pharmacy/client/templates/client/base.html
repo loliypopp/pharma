@@ -1,31 +1,52 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type='text/css' href="{% static 'client/css/styles.css' %}">
     <title>Client</title>
 </head>
 
 <body>
     <nav>
-        <ul>
-            <li><a href="{% url 'start_page' %}">Главная</a></li>
+        <a href="" class="logo-a"><img class="logo" src="{% static 'client/images/logo.png' %}" alt=""></a>
+        <ul class="ul">
+            <li><a href="{% url 'start_page' %}" class="li-a">Главная</a></li>
             {% if user.is_authenticated %}
-            <li><a href="{% url 'profile' %}">Профиль</a></li>
-            <li><a href="">Добавить</a></li>
-            <li><a href="{% url 'logout' %}">Выход</a></li>
+            <li><a href="{% url 'login' %}"><a class="li-a" href="{% url 'logout' %}">Выход</a></li></a>
+            <li><a class="li-a" href="{% url 'profile' %}"><img style="width: 40px; height: 40px;" class="prof-img"
+                        src="{% static 'client/images/profile.png' %}" alt=""></a></li>
             {% else %}
-            <li><a href="{% url 'registration' %}">Регистрация</a></li>
-            <li><a href="{% url 'login' %}">Войти</a></li>
+            <li><a class="li-a" href="{% url 'registration' %}">Регистрация</a></li>
+            <li><a class="li-a" href="{% url 'login' %}">Войти</a></li>
             {% endif %}
         </ul>
     </nav>
-    {% block content %}
-    <div>
+    <div class="main">
+        {% block content %}
 
+
+
+        {% endblock %}
     </div>
-    {% endblock %}
+    <footer>
+        <div class="foot-img">
+            <a href="https://t.me/seriousrightnow"><img src="{% static 'client/images/Telegram_Messenger.png' %}" alt=""
+                    class="end-img"></a>
+            <a href="https://www.youtube.com/watch?v=YR16dpgtE_0&pp=ygUKYmFuYW5jaGlraQ%3D%3D"><img
+                    src="{% static 'client/images/Youtube_logo.png' %}" alt="" class="end-img"></a>
+            <a href="https://instagram.com/_shohjahon.com_?utm_source=qr"><img
+                    src="{% static 'client/images/Instagram_icon.png' %}" alt="" class="end-img"></a>
+        </div>
+        <div class="foot-text">
+            <p><a href="{% url 'registration_pharmacist' %}" class="text-end">Стать фармацевтом</a></p>
+            <p><a href="https://t.me/seriousrightnow" class="text-end">Контакты</a></p>
+            <p><a href="" class="text-end">О нас</a></p>
+        </div>
+    </footer>
 </body>
 
 </html>

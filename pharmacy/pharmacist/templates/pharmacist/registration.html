@@ -2,12 +2,13 @@
 
 
 {% block content %}
-    <div>
-        <form method="post">
-            {% csrf_token %}
-            {{ user_form.as_p }}
-            {{ pharmacist_form.as_p }}
-            <input type="submit" value="Подтвердить">
-        </form>
-    </div>
+<div class="reg-div">
+    <h1>Регистрация фармацевта:</h1>
+    <form method="post" class="form">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ pharmacist_form.as_p }}
+        <input type="submit" value="Подтвердить" class="sub">
+    </form>
+</div>
 {% endblock %}
