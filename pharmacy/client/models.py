@@ -73,18 +73,18 @@ class CartItem(models.Model):
         return f"{self.medicine.name}-{self.quantity}"
 
 
-    # def increase_quantity(self, force_insert=False, force_update=False, using=None, update_fields=None):
-    #     self.quantity += 1
-    #     self.cart.total_price += self.product.price
-    #     self.cart.save()
-    #     super().save(force_insert, force_update, using, update_fields)
+    def increase_quantity(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        self.quantity += 1
+        self.cart.total_price += self.medicine.price
+        self.cart.save()
+        super().save(force_insert, force_update, using, update_fields)
         
 
-    # def decrease_quantity(self, force_insert=False, force_update=False, using=None, update_fields=None):
-    #     self.quantity -= 1
-    #     self.cart.total_price -= self.product.price
-    #     self.cart.save()
-    #     super().save(force_insert, force_update, using, update_fields)
+    def decrease_quantity(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        self.quantity -= 1
+        self.cart.total_price -= self.medicine.price
+        self.cart.save()
+        super().save(force_insert, force_update, using, update_fields)
 
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
@@ -93,10 +93,10 @@ class CartItem(models.Model):
         super().save(force_insert, force_update, using, update_fields)
     
 
-    # def delete(self, using=None, keep_parents=False):
-    #     self.cart.total_price -= self.product.price * self.quantity
-    #     self.cart.save()
-    #     return super().delete(using, keep_parents)
+    def delete(self, using=None, keep_parents=False):
+        self.cart.total_price -= self.medicine.price * self.quantity
+        self.cart.save()
+        return super().delete(using, keep_parents)
 
 
     def get_item_price(self):

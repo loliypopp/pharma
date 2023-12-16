@@ -45,6 +45,31 @@ def register_client(request):
 
 
 @login_required
+def change_quantity(request, slug, param):
+    medicine = get_object_or_404(Medicine, slug=slug)
+    cart_item = get_object_or_404(CartItem, medicine=medicine)
+
+    if param == 'incr':
+        cart_item.increase_quantity()
+    if param == 'decr':
+        cart_item.decrease_quantity()
+
+    return redirect('cart')
+
+
+@login_required
+def remove_product_from_cart(request, slug):
+    medicine = get_object_or_404(Medicine, slug=slug)
+    cart_item = get_object_or_404(CartItem, medicine=medicine)
+
+    cart_item.delete()
+
+    return redirect('cart')
+
+
+
+
+@login_required
 def add_to_favorites(request, slug):
     medicine = Medicine.objects.get(slug = slug)
     client = get_object_or_404(Client, user=request.user)
@@ -64,6 +89,7 @@ def remove_from_favorites(request, slug):
         favorite_medicine.delete()
 
     return redirect('medicine_detail', slug=slug)
+
 
 
 def logout_client(request):

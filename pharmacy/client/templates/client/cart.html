@@ -8,17 +8,23 @@
     <div class="bom">
 
         {% for med in cart %}
-        <div class="cart-med">
-            <p>Название: {{ med.medicine.name }}</p>
-            <p>Цена: {{ med.medicine.price }}$</p>
+        <div class="cart-med" style="height: 170px;">
+            <p style="text-align: center;">Название: {{ med.medicine.name }}</p>
+            <p style="text-align: center;">Цена: {{ med.medicine.price }}$</p>
+            <p>
+                <a href="{% url 'cart_quantity' med.medicine.slug 'incr' %}" class="sub" style="text-decoration: none;
+                                                                                                color: black;">+</a>
+                {{ med.quantity }}
+                <a href="{% url 'cart_quantity' med.medicine.slug 'decr' %}" class="sub" style="text-decoration: none;
+                color: black;">-</a>
+            </p>
+            <p><a href="{% url 'cart_remove' med.medicine.slug %}" class="sub" style="text-decoration: none;
+                color: black;">Удалить</a></p>
         </div>
         {% endfor %}
-
-
-
     </div>
     <div class="cart-form">
-        <h3>Итого: {{ total_price }}</h3>
+        <h3 style="margin-top: 50px;">Итого: {{ total_price }}</h3>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}

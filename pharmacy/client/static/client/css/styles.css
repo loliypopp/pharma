@@ -290,7 +290,6 @@ footer {
 .cart-med {
     width: 190px;
     margin-right: 5px;
-    height: 80px;
     color: black;
     border-radius: 15px;
     text-align: center;
@@ -311,6 +310,19 @@ footer {
 
 .sub {
     border-radius: 15px;
+    background-color: rgb(6, 74, 200);
+    color: white;
+    padding: 5px;
+    border: 1px solid black;
+    font-size: 17px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+a.sub {
+    border-radius: 15px;
+    background-color: rgb(6, 74, 200);
+    color: white;
     padding: 5px;
     border: 1px solid black;
     font-size: 17px;
