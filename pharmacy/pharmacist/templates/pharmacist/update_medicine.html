@@ -2,5 +2,12 @@
 
 
 {% block content %}
-y
+<div class="reg-div">
+    <h1>Изменение лекарства</h1>
+    <form method="post" enctype="multipart/form-data" class="form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Изменить" class="sub">
+    </form>
+</div>
 {% endblock %}

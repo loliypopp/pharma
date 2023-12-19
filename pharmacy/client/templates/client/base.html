@@ -12,18 +12,17 @@
 
 <body>
     <nav>
-        <a href="" class="logo-a"><img class="logo" src="{% static 'client/images/logo.png' %}" alt=""></a>
-        <ul class="ul">
-            <li><a href="{% url 'start_page' %}" class="li-a">Главная</a></li>
-            {% if user.is_authenticated %}
-            <li><a href="{% url 'login' %}"><a class="li-a" href="{% url 'logout' %}">Выход</a></li></a>
-            <li><a class="li-a" href="{% url 'profile' %}"><img style="width: 40px; height: 40px;" class="prof-img"
-                        src="{% static 'client/images/profile.png' %}" alt=""></a></li>
-            {% else %}
-            <li><a class="li-a" href="{% url 'registration' %}">Регистрация</a></li>
-            <li><a class="li-a" href="{% url 'login' %}">Войти</a></li>
-            {% endif %}
-        </ul>
+        <p><a href="" class="logo-a"><img class="logo" src="{% static 'client/images/logo.png' %}" alt=""></a></p>
+        <a href="{% url 'start_page' %}" class="li-a">Главная</a></p>
+        {% if user.is_authenticated %}
+        <p><a href="{% url 'cart' %}" class="li-a">Корзина</a></p>
+        <p><a class="li-a" href="{% url 'logout' %}">Выход</a></p>
+        <p><a href="{% url 'profile' %}"><img style="width: 40px; height: 40px;" class="prof-img"
+                    src="{% static 'client/images/profile.png' %}" alt=""></a></p>
+        {% else %}
+        <p><a class="li-a" href="{% url 'registration' %}">Регистрация</a></p>
+        <p>><a class="li-a" href="{% url 'login' %}">Войти</a></p>
+        {% endif %}
     </nav>
     <div class="main">
         {% block content %}

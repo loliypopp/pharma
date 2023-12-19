@@ -1,0 +1,15 @@
+{% extends 'client/base.html' %}
+
+
+{% block content %}
+<div class="reg-div">
+    <h1>Регистрация клиента:
+    </h1>
+    <form method="post" class="form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{ form2.as_p }}
+        <input type="submit" value="Подтвердить" class="sub">
+    </form>
+</div>
+{% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'courier/base.html' %}
 
 {% block content %}
-<div class="reg-div">
+<div class="reg-div" style="background-color: white;">
     <form method="post" class="form">
         {% csrf_token %}
         {{ user_form.as_p }}

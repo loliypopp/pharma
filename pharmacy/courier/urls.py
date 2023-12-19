@@ -15,7 +15,8 @@ urlpatterns = [
     path('profile/', UserProfileView.as_view(), name='profile_c'),
     
     # orders
-    path('order/<str:link>/', order_details, name='order_details_c')
+    path('order/<str:link>/', order_details, name='order_details_c'),
+    path('order/<str:link>/decline_delivery', decline_delivery,name='decline_delivery')
 ]
 
 

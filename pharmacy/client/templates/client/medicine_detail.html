@@ -2,7 +2,8 @@
 
 
 {% block content %}
-<div class="det-page">
+<div class="det-page" style="background-color: white;
+                            padding: 10px;">
     <div class="det">
         <img src="{{ medicine.image.url }}" alt="" class="det-img" style="width: 370px;">
         <div class="det-text">
@@ -10,20 +11,24 @@
             <p>Аптека: {{ medicine.pharmacies }}</p>
             <p>Вид лекарства: {{ medicine.type_of_med }}</p>
             <p>Дата производства: {{ medicine.manuf_date }}</p>
-            <p>Цена: {{ medicine.price }}</p>
+            <p>Цена: {{ medicine.price }}$</p>
+            {% if user.is_authenticated %}
             <p><a href="{% url 'cart_add' medicine.slug %}" class="det-add">Добавить в корзину</a></p>
 
 
+            {% if flag %}
+            <p><a href="{% url 'favorites' %}" class="sub">Товар добавлен в избранные</a></p>
+
+            {% else %}
             <form action="{% url 'add_to_favorites' medicine.slug %}" method="post" class="form">
                 {% csrf_token %}
                 <button type="submit" class="sub">Добавить в избранное</button>
             </form>
-
-            <form action="{% url 'remove_from_favorites' medicine.slug %}" method="post" class="form">
-                {% csrf_token %}
-                <button type="submit" class="sub">Удалить с избранных</button>
-            </form>
-
+            {% endif %}
+            {% else %}
+            <p><a href="{% url 'registration' %}" class="sub" style="text-decoration: none;">Авторизуйтесь, для
+                    добавления в корзину</a></p>
+            {% endif %}
         </div>
     </div>
     <div class="det-end">
@@ -33,6 +38,51 @@
         <p>{{ medicine.usage }}</p>
         <h2 class="h2">Показания: </h2>
         <p>{{ medicine.indications }}</p>
+        <div class="comments">
+            <h2>Комментарии:</h2>
+            <div class="cshow">
+
+                {% for comment in comments %}
+                <div class="com" style="display: flex;
+                justify-content: space-around;
+                flex-direction: column;
+                border: 2px solid black;
+                border-radius: 15px;
+                text-align: center;
+                align-items: center;
+                display: flex;
+                margin-bottom: 8px;
+                padding: 5px;">
+                    <div style="display: flex;
+                    justify-content: space-between;">
+                        <p style="margin-right: 20px;">Username: {{ comment.client.user.username }}</p>
+                        <p>Время: {{comment.created_at}}</p>
+                    </div>
+
+
+                    <p>Текст: {{ comment.text }}</p>
+
+                    {% if comment.client == request.user.client %}
+                    <form method="post" action="{% url 'medicine_detail' medicine.slug %}" class="form">
+                        {% csrf_token %}
+                        <input type="hidden" name="delete_comment" value="{{ comment.id }}">
+                        <button type="submit" class="sub">Delete Comment</button>
+                    </form>
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+            </div>
+            {% if user.is_authenticated %}
+            <form method="post" action="{% url 'medicine_detail' medicine.slug %}" class="form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="sub">Add Comment</button>
+            </form>
+            {% else %}
+            <p><a href="{% url 'registration' %}" class="sub">Авторизуйтесь, чтоб оставить комментарий</a></p>
+            {% endif %}
+        </div>
     </div>
 
 </div>

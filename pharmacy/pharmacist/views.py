@@ -5,7 +5,7 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
-                                  TemplateView)
+                                  TemplateView, UpdateView)
 from pyexpat.errors import messages
 
 from .forms import (CustomUserRegistrationForm, FreeCourierOrderForm,
@@ -28,6 +28,13 @@ class CreateMedicineView(CreateView):
     success_url = reverse_lazy('start_page_pharmacist')
     
 
+class MedicineUpdateView(UpdateView):
+    model=Medicine
+    form_class = MedicineAdditionForm
+    slug_field = 'slug'
+    slug_url_kwarg = 'slug'
+    template_name='pharmacist/update_medicine.html'
+    success_url = reverse_lazy('start_page_pharmacist')
 
 
 def register_pharmacist(request):
@@ -79,12 +86,19 @@ class UserProfileView(TemplateView):
 
 def orders_handling(request):
     pharmacist = get_object_or_404(Pharmacist, user=request.user)
-    orders = Order.objects.filter(pharmacy = pharmacist.pharmacy)
+    orders = Order.objects.filter(pharmacy=pharmacist.pharmacy).exclude(status='Отклонено')
 
     context = {'orders': orders}
     return render(request, 'pharmacist/order_handling.html', context)
 
 
+def decline_order(request, link):
+    link= int(link)
+    order = get_object_or_404(Order, id=link)
+    order.status = 'Отклонено'
+    order.save()
+
+    return redirect('orders_handling')
 
 def order_details(request, link):
     link = int(link)

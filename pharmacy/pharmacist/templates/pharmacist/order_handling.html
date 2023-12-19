@@ -2,7 +2,7 @@
 
 
 {% block content %}
-<div class="order-div">
+<div class="order-div" style="background-color: white;">
     <h1>Заказы:</h1>
     <div class="bom">
         {% for order in orders %}
@@ -11,7 +11,10 @@
             <p>Дата заказа: {{ order.order_date }}</p>
             <p>Сумма: {{ order.total_price }}</p>
             <p>Статус заказа: {{ order.status }}</p>
-            <p><a href="{% url 'order_details_ph' order.id %}">Дополнительно</a></p>
+            {% if order.status != 'Доставляется' %}
+            <p><a href="{% url 'order_details_ph' order.id %}" class="sub">Принять заказ</a></p>
+            <p><a href="{% url 'decline_order' order.id %}" class="sub">Отклонить заказ</a></p>
+            {% endif %}
         </div>
         {% endfor %}
     </div>

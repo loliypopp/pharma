@@ -12,7 +12,7 @@
         </div>
         {% endfor %}
     </div>
-    {% if ord.status == "Сбор" %}
+    {% if orderr.status == "Сбор" %}
     <form method="post" class="form">
         {%csrf_token%}
         {{form.as_p}}

@@ -2,6 +2,27 @@
 
 
 {% block content %}
-{{medicine}}
-{{medicine.image}}
+<div class="det-page" style="background-color: white;">
+    <div class="det">
+        <img src="{{ medicine.image.url }}" alt="" class="det-img" style="width: 370px;">
+        <div class="det-text">
+            <h1>{{medicine.name}}</h1>
+            <p>Аптека: {{ medicine.pharmacies }}</p>
+            <p>Вид лекарства: {{ medicine.type_of_med }}</p>
+            <p>Дата производства: {{ medicine.manuf_date }}</p>
+            <p>Цена: {{ medicine.price }}$</p>
+            <p><a href="{% url 'update_med' medicine.slug %}" class='sub' style="text-decoration: none;
+                                        color: black;">Изменить лекарство</a></p>
+        </div>
+    </div>
+    <div class="det-end">
+        <h2 class="h2">Описание:</h2>
+        <p>{{medicine.description}}</p>
+        <h2 class="h2">Способ применения: </h2>
+        <p>{{ medicine.usage }}</p>
+        <h2 class="h2">Показания: </h2>
+        <p>{{ medicine.indications }}</p>
+    </div>
+
+</div>
 {% endblock %}

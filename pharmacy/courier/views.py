@@ -17,11 +17,12 @@ from client.models import Order, OrderItem, Client
 def TheStartPage(request):
     try:
         courier = get_object_or_404(Courier, user=request.user)
-        orders = Order.objects.filter(courier=courier)
+        orders = Order.objects.filter(courier=courier).exclude(status='Поиск курьера')
         context = {
             'orders' : orders
         }
     except:
+        logout(request)
         return redirect('registration_c')
 
     return render(request, 'courier/start_page.html', context)
@@ -84,3 +85,11 @@ def order_details(request, link):
         }
     
     return render(request, 'courier/order_details.html', context)
+
+
+def decline_delivery(request, link):
+    order = Order.objects.get(id=link)
+    order.status = 'Поиск курьера'
+    order.save()
+
+    return redirect('start_page_c')

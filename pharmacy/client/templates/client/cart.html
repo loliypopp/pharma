@@ -1,12 +1,15 @@
 {% extends 'client/base.html' %}
 
-
 {% block content %}
+<!-- Добавляем скрипт для подключения библиотеки Folium -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
 <div class="cart-div">
+    <!-- Блок для отображения корзины -->
     <h1>Корзина</h1>
     {% if cart %}
     <div class="bom">
-
         {% for med in cart %}
         <div class="cart-med" style="height: 170px;">
             <p style="text-align: center;">Название: {{ med.medicine.name }}</p>
@@ -23,16 +26,112 @@
         </div>
         {% endfor %}
     </div>
+
+    <!-- Блок для карты и формы -->
+    <div class="map-container">
+        <div id="map" class="map" data-url="{% url 'cart' %}" style=" height: 300px; width: 700px;">
+        </div>
+        <form method="get" class="form">
+            {% csrf_token %}
+            <input type="text" id="locationInput" placeholder="Введите название местоположения" required>
+            <button type="button" onclick="showOnMap()" class="sub">Показать на карте</button>
+        </form>
+    </div>
+
+    <!-- Блок для итоговой формы -->
     <div class="cart-form">
-        <h3 style="margin-top: 50px;">Итого: {{ total_price }}</h3>
+        <h2>Мы сами найдем самый оптимальный путь :)</h2>
+        <h3 style="margin-top: 50px;">Итого: {{ total_price }}$</h3>
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
             <input type="submit" value="Купить" class="sub">
         </form>
     </div>
     {% else %}
     <h2>Здесь пока ничего нет!</h2>
     {% endif %}
+    <ul id="pharmacy-list" style="display: none;">
+        {% for pharmacy in pharmacies %}
+        <li data-lat="{{ pharmacy.latitude }}" data-lon="{{ pharmacy.longitude }}" data-name="{{ pharmacy.name }}"
+            data-address="{{ pharmacy.address }}"></li>
+        {% endfor %}
+    </ul>
 </div>
+
+<!-- Добавляем скрипт для инициализации карты и обработки геокодирования -->
+<script>
+    var map = L.map('map').setView([55.7558, 37.6176], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    var pharmacyList = document.getElementById('pharmacy-list').getElementsByTagName('li');
+    for (var i = 0; i < pharmacyList.length; i++) {
+        var pharmacy = pharmacyList[i];
+        var lat = parseFloat(pharmacy.getAttribute('data-lat'));
+        var lon = parseFloat(pharmacy.getAttribute('data-lon'));
+        var name = pharmacy.getAttribute('data-name');
+        var address = pharmacy.getAttribute('data-address');
+
+        var marker = L.marker([lat, lon])
+            .bindPopup(name + '<br>' + address);
+        marker.addTo(map);
+    }
+
+    map.fitBounds(L.featureGroup(Array.from(map._layers).filter(l => l.getBounds)).getBounds());
+
+    map.on('click', function (e) {
+        alert('Вы кликнули по карте на координатах ' + e.latlng.toString());
+    });
+
+    function sendLatLonToDjango(lat, lon) {
+        var url = document.getElementById('map').dataset.url;
+
+        // Append lat and lon as URL parameters
+        url += '?lat=' + lat + '&lon=' + lon;
+
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Data sent to Django:', data);
+            })
+            .catch(error => {
+                console.error('Error sending data to Django:', error);
+            });
+    }
+
+    function showOnMap() {
+        var locationInput = document.getElementById('locationInput').value;
+
+        fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(locationInput))
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.length > 0) {
+                    var lat = parseFloat(data[0].lat);
+                    var lon = parseFloat(data[0].lon);
+
+                    map.setView([lat, lon], 12);
+
+                    L.marker([lat, lon]).addTo(map)
+                        .bindPopup(locationInput)
+                        .openPopup();
+
+                    // Pass lat and lon as parameters to the function
+                    sendLatLonToDjango(lat, lon);
+                } else {
+                    alert('Местоположение не найдено. Пожалуйста, введите другое название.');
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка при выполнении геокодирования:', error);
+            });
+    }
+
+</script>
 {% endblock %}

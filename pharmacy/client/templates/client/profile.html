@@ -15,7 +15,8 @@
         <p><a href="{% url 'cart' %}" class="prof-a">Корзина</a></p>
         <p><a href="{% url 'order_list' %}" class="prof-a">Мои заказы</a></p>
         <p><a href="{% url 'favorites' %}" class="prof-a">Избранное</a></p>
-        <p><a href="" class="prof-a">Настройки</a></p>
+        <p><a href="{% url 'update_profile' user.client.id %}" class="prof-a">Изменить себя</a></p>
+        <p><a href="" class="prof-a">Изменить пароль</a></p>
     </div>
 </div>
 {% endblock %}

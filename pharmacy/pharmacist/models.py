@@ -3,6 +3,7 @@ from main.models import CustomUser
 from django.utils.text import slugify
 from transliterate import detect_language
 from transliterate import slugify as tr_slugify
+from geopy.geocoders import Nominatim
 
 """PHARMA"""
 
@@ -13,13 +14,23 @@ class Pharmacy(models.Model):
     phone_number = models.CharField(max_length=15, verbose_name='Номер телефона аптеки')
     slug = models.SlugField(unique=True, blank=True)
 
-
+    latitude = models.FloatField(blank=True, null=True)
+    longitude = models.FloatField(blank=True, null=True)
     def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
+        
+        # Преобразуем строку адреса в координаты
+        if not (self.latitude and self.longitude):
+            geolocator = Nominatim(user_agent="pharmacist")
+            location_data = geolocator.geocode(self.address)
+            if location_data:
+                self.latitude = location_data.latitude
+                self.longitude = location_data.longitude
+
         super().save(*args, **kwargs)
 
     # def set_location(self, latitude, longitude):

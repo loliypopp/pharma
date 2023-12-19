@@ -1,5 +1,10 @@
 body {
+    background-image: url("https://img.freepik.com/premium-photo/blurred-background-of-a-pharmacy-or-drugstore-with-defocused-objects_841543-8781.jpg");
     margin: 0 auto;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -17,18 +22,19 @@ nav {
     display: flex;
     width: 100%;
     height: 65px;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
 }
 
-ul {
-    display: flex;
+.li-a {
+    color: black;
+    border: 3px solid rgb(6, 74, 200);
+    padding: 7px;
+    padding-left: 2px;
+    padding-right: 2px;
+    border-radius: 15px;
+    background-color: white;
 
-}
-
-li {
-    margin-left: 35px;
-    margin-right: 10px;
 }
 
 .logo {
@@ -50,24 +56,41 @@ li {
     filter: none;
 }
 
-.li-a {
-    color: white;
-    text-decoration: none;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    transition: color 0.3s;
-    /* Добавлен переход для цвета текста */
-    align-items: center;
-    text-align: center;
-}
 
 
-.li-a:hover {
-    color: rgb(6, 74, 200);
-    transition: 1s;
-
-}
 
 .main-div {
+    display: flex;
+    color: black;
+    margin-top: 10px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    background-color: white;
+    width: 960px;
+    /* изменено на wrap, чтобы элементы переносились на новую строку */
+    border: 3px solid black;
+    border-radius: 15px;
+    padding: 20px;
+    height: 880px;
+}
+
+.main-divv {
+    margin: 0 auto;
+    display: flex;
+    color: black;
+    margin-top: 10px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    background-color: white;
+    width: 960px;
+    /* изменено на wrap, чтобы элементы переносились на новую строку */
+    border: 3px solid black;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+
+.mainn-div {
     margin: 0 auto;
     display: flex;
     margin-top: 10px;
@@ -75,8 +98,6 @@ li {
     flex-wrap: wrap;
     /* изменено на wrap, чтобы элементы переносились на новую строку */
     width: 1080px;
-    border: 3px solid black;
-    border-radius: 15px;
     padding: 20px;
 }
 
@@ -91,17 +112,33 @@ a {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-.med-div {
+.med-divv {
+    margin: 0 auto;
     width: 200px;
-    height: 325px;
+    background-color: white;
     border-radius: 15px;
     border: 2px solid black;
     align-items: center;
     text-align: center;
     font-size: 18px;
-
+    margin-right: 20px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+
+
+.med-div {
+    width: 200px;
+    background-color: white;
+    border-radius: 15px;
+    border: 2px solid black;
+    align-items: center;
+    text-align: center;
+    font-size: 18px;
+    margin-right: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
 
 .med-det {
     color: black;
@@ -190,6 +227,45 @@ footer {
 
 }
 
+#form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: space-between;
+    text-align: center;
+}
+
+input {
+    margin-top: 25px;
+    border: 1px solid black;
+    border-radius: 15px;
+    text-align: center;
+    padding: 5px;
+    margin-bottom: 25px;
+}
+
+.step-links {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+}
+
+.current {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.filter {
+    align-items: center;
+    text-align: center;
+    border: 3px solid black;
+    background-color: white;
+    border-radius: 5px;
+    width: 370px;
+    height: 700px;
+    padding: 20px;
+}
 
 .det {
     display: flex;
@@ -246,6 +322,7 @@ footer {
     margin-top: 10px;
     justify-content: space-evenly;
     flex-wrap: nowrap;
+    background-color: white;
     align-items: center;
     width: 620px;
     border: 3px solid black;
@@ -268,6 +345,7 @@ footer {
 .cart-div {
     margin: 0 auto;
     display: flex;
+    background-color: white;
     flex-direction: column;
     flex-wrap: wrap;
     width: 720px;
@@ -318,6 +396,11 @@ footer {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+#map {
+    height: 400px;
+    border: 3px solid black;
+    border-radius: 15px;
+}
 
 a.sub {
     border-radius: 15px;
@@ -341,6 +424,7 @@ a.sub {
     margin: 0 auto;
     width: 620px;
     margin-top: 20px;
+    background-color: white;
     padding: 20px;
     border: 3px solid black;
     align-items: center;
@@ -375,6 +459,50 @@ a.sub {
     font-weight: bold;
 }
 
+
+.form p textarea {
+    border: 1px solid black;
+    border-radius: 15px;
+    text-align: center;
+    padding: 5px;
+
+}
+
+#id_text {
+    border: 1px solid black;
+    border-radius: 15px;
+    text-align: center;
+    padding: 5px;
+
+}
+
+.cshow {
+    border: 1px solid black;
+    border-radius: 15px;
+    text-align: center;
+    padding: 5px;
+
+    background-color: white;
+    margin-bottom: 10px;
+    width: 600px;
+}
+
+.comments {
+    text-align: center;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+com {
+    display: flex;
+    justify-content: space-between;
+    height: 30px;
+    border: 2px solid black;
+    border-radius: 15px;
+}
 
 .log-div {
     margin: 0 auto;

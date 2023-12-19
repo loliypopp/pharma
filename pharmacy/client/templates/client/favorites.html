@@ -3,15 +3,21 @@
 {% block content %}
 <h1 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; 
             text-decoration: none;
-            align-items: center;">Избранные</h1>
-<div class='main-div'>
+            align-items: center;
+            text-align: center;
+            color: rgb(0, 0, 0);">Избранные</h1>
+<div class='main-divv'>
 
     {% for fav in favorites %}
-    <div class="med-div">
+    <div class="med-divv" style="height: 375px;">
         <h3 class="med-name">{{fav.medicine.name}}</h3>
         <img src="{{ fav.medicine.image.url }}" alt="{{fav.medicine.name}}" class="med-img">
         <p>Цена: {{ fav.medicine.price }}$</p>
         <p><a href="{% url 'medicine_detail' fav.medicine.slug %}" class="med-det">Подробно</a></p>
+        <form action="{% url 'remove_from_favorites' fav.medicine.slug %}" method="post" class="form">
+            {% csrf_token %}
+            <button type="submit" class="sub">Удалить с избранных</button>
+        </form>
     </div>
     {% endfor %}
 </div>

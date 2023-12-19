@@ -1,4 +1,12 @@
 body {
+    background-image: url("https://media.istockphoto.com/id/930026606/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%81%D0%BA%D0%B0%D1%83%D1%82%D0%B8%D0%BD%D0%B3-%D0%BF%D0%BE%D0%BB%D0%BA%D0%B8-%D0%B4%D0%BB%D1%8F-%D0%B8%D0%B4%D0%B5%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BF%D1%80%D0%BE%D0%B4%D1%83%D0%BA%D1%82%D0%B0.jpg?s=2048x2048&w=is&k=20&c=ZeAG-iVZtlUBMZWrVA4wexB8WXUlaDgGrKWs3Q8NhgQ=");
+    margin: 0 auto;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    margin: 0 auto;
+
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -16,18 +24,8 @@ nav {
     display: flex;
     width: 100%;
     height: 65px;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
-}
-
-ul {
-    display: flex;
-
-}
-
-li {
-    margin-left: 35px;
-    margin-right: 10px;
 }
 
 .logo {
@@ -60,11 +58,6 @@ li {
 }
 
 
-.li-a:hover {
-    color: rgb(6, 74, 200);
-    transition: 1s;
-
-}
 
 .main-div {
     margin: 0 auto;
@@ -82,6 +75,7 @@ li {
 .med-div {
     width: 300px;
     height: 325px;
+    background-color: white;
     border-radius: 15px;
     border: 2px solid black;
     align-items: center;
@@ -365,6 +359,12 @@ footer {
     font-weight: bold;
 }
 
+.form p textarea {
+    border: 1px solid black;
+    border-radius: 15px;
+    text-align: center;
+    padding: 5px;
+}
 
 .log-div {
     margin: 0 auto;
@@ -422,12 +422,25 @@ data {
     margin-bottom: 20px;
 }
 
+.li-a {
+    color: black;
+    border: 3px solid rgb(6, 74, 200);
+    padding: 7px;
+    padding-left: 2px;
+    padding-right: 2px;
+    border-radius: 15px;
+    background-color: white;
+    padding: 5px;
+    margin: 5px;
+
+}
 
 .ord-div {
     width: 250px;
     border-radius: 15px;
     border: 2px solid black;
     align-items: center;
+    background-color: white;
     text-align: center;
     font-size: 18px;
 

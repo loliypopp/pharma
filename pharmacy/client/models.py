@@ -5,15 +5,23 @@ from courier.models import Courier
 
 class Client(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    age = models.PositiveIntegerField(null=True)
-    address = models.CharField(max_length=255, null=True)
-    phone = models.PositiveIntegerField(null=True)
-
-
+    age = models.PositiveIntegerField(null=True, blank=True)
+    address = models.CharField(max_length=255, null=True, blank=True)
+    phone = models.PositiveIntegerField(null=True, blank=True)
+    temp_pharmacy = models.OneToOneField(Pharmacy, on_delete=models.CASCADE,blank=True, null=True)
+    best_distance = models.FloatField(default=0)
+    
     def __str__(self):
-        return self.user.first_name
+        return self.user.username
     
 
+class Comment(models.Model):
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.client.user.first_name}-{self.created_at}"
 
 class Order(models.Model):
     user = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='orders')
@@ -79,11 +87,14 @@ class CartItem(models.Model):
         self.cart.save()
         super().save(force_insert, force_update, using, update_fields)
         
+    class Meta:
+        unique_together = ('cart', 'medicine')
 
     def decrease_quantity(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        self.quantity -= 1
-        self.cart.total_price -= self.medicine.price
-        self.cart.save()
+        if self.quantity != 0:
+            self.quantity -= 1
+            self.cart.total_price -= self.medicine.price
+            self.cart.save()
         super().save(force_insert, force_update, using, update_fields)
 
 
